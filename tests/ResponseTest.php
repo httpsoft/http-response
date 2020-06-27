@@ -35,7 +35,7 @@ class ResponseTest extends TestCase
         self::assertEquals('1.1', $this->response->getProtocolVersion());
     }
 
-    public function testGettersNotDefault(): void
+    public function testGettersSpecifiedArguments(): void
     {
         $response = new Response(
             $statusCode = Response::STATUS_NOT_FOUND,
