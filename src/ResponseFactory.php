@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
-class ResponseFactory implements ResponseFactoryInterface
+final class ResponseFactory implements ResponseFactoryInterface
 {
     /**
      * @param int $statusCode
