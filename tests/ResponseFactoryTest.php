@@ -38,7 +38,7 @@ class ResponseFactoryTest extends TestCase
             $statusCode = Response::STATUS_NOT_FOUND,
             $customPhrase = 'Custom Phrase',
             $stream = 'php://memory',
-            ['Host' => 'example.com'],
+            ['Content-Language' => 'en'],
             $protocol = '2'
         );
         self::assertInstanceOf(Response::class, $response);
@@ -47,7 +47,7 @@ class ResponseFactoryTest extends TestCase
         self::assertEquals($customPhrase, $response->getReasonPhrase());
         self::assertInstanceOf(StreamInterface::class, $response->getBody());
         self::assertEquals($stream, $response->getBody()->getMetadata('uri'));
-        self::assertEquals(['Host' => ['example.com']], $response->getHeaders());
+        self::assertEquals(['Content-Language' => ['en']], $response->getHeaders());
         self::assertEquals($protocol, $response->getProtocolVersion());
     }
 

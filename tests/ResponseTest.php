@@ -41,7 +41,7 @@ class ResponseTest extends TestCase
             $statusCode = Response::STATUS_NOT_FOUND,
             $reasonPhrase = Response::PHRASES[Response::STATUS_NOT_FOUND],
             $stream = 'php://memory',
-            ['Host' => 'example.com'],
+            ['Content-Language' => 'en'],
             $protocol = '2'
         );
         self::assertEquals($statusCode, $response->getStatusCode());
@@ -49,7 +49,7 @@ class ResponseTest extends TestCase
         self::assertInstanceOf(StreamInterface::class, $response->getBody());
         self::assertEquals($stream, $response->getBody()->getMetadata('uri'));
         self::assertEquals('', $response->getBody()->getContents());
-        self::assertEquals(['Host' => ['example.com']], $response->getHeaders());
+        self::assertEquals(['Content-Language' => ['en']], $response->getHeaders());
         self::assertEquals($protocol, $response->getProtocolVersion());
     }
 
