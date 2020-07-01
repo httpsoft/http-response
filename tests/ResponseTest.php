@@ -77,22 +77,6 @@ class ResponseTest extends TestCase
         self::assertEquals($customPhrase, $response->getReasonPhrase());
     }
 
-    public function testWithStatusHasNotBeenChangedNotClone(): void
-    {
-        $response = $this->response->withStatus(Response::STATUS_OK, Response::PHRASES[Response::STATUS_OK]);
-        self::assertEquals($this->response, $response);
-        self::assertEquals(Response::STATUS_OK, $response->getStatusCode());
-        self::assertEquals(Response::PHRASES[Response::STATUS_OK], $response->getReasonPhrase());
-    }
-
-    public function testWithStatusPassingOnlyCodeHasNotBeenChangedNotClone(): void
-    {
-        $response = $this->response->withStatus(Response::STATUS_OK);
-        self::assertEquals($this->response, $response);
-        self::assertEquals(Response::STATUS_OK, $response->getStatusCode());
-        self::assertEquals(Response::PHRASES[Response::STATUS_OK], $response->getReasonPhrase());
-    }
-
     /**
      * @return array
      */

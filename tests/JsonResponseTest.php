@@ -262,25 +262,6 @@ class JsonResponseTest extends TestCase
         self::assertEquals($customPhrase, $response->getReasonPhrase());
     }
 
-    public function testWithStatusHasNotBeenChangedNotClone(): void
-    {
-        $response = $this->response->withStatus(
-            JsonResponse::STATUS_OK,
-            JsonResponse::PHRASES[JsonResponse::STATUS_OK]
-        );
-        self::assertEquals($this->response, $response);
-        self::assertEquals(JsonResponse::STATUS_OK, $response->getStatusCode());
-        self::assertEquals(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
-    }
-
-    public function testWithStatusPassingOnlyCodeHasNotBeenChangedNotClone(): void
-    {
-        $response = $this->response->withStatus(JsonResponse::STATUS_OK);
-        self::assertEquals($this->response, $response);
-        self::assertEquals(JsonResponse::STATUS_OK, $response->getStatusCode());
-        self::assertEquals(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
-    }
-
     /**
      * @return array
      */

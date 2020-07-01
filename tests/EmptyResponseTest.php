@@ -70,25 +70,6 @@ class EmptyResponseTest extends TestCase
         self::assertEquals($customPhrase, $response->getReasonPhrase());
     }
 
-    public function testWithStatusHasNotBeenChangedCodeAndHasBeenChangedReasonPhrase(): void
-    {
-        $response = $this->response->withStatus(EmptyResponse::STATUS_CREATED, $customPhrase = 'Custom Phrase');
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(EmptyResponse::STATUS_CREATED, $response->getStatusCode());
-        self::assertEquals($customPhrase, $response->getReasonPhrase());
-    }
-
-    public function testWithStatusHasNotBeenChangedNotClone(): void
-    {
-        $response = $this->response->withStatus(
-            EmptyResponse::STATUS_NO_CONTENT,
-            EmptyResponse::PHRASES[EmptyResponse::STATUS_NO_CONTENT]
-        );
-        self::assertEquals($this->response, $response);
-        self::assertEquals(EmptyResponse::STATUS_NO_CONTENT, $response->getStatusCode());
-        self::assertEquals(EmptyResponse::PHRASES[EmptyResponse::STATUS_NO_CONTENT], $response->getReasonPhrase());
-    }
-
     public function testWithStatusPassingOnlyCodeHasNotBeenChangedNotClone(): void
     {
         $response = $this->response->withStatus(EmptyResponse::STATUS_NO_CONTENT);

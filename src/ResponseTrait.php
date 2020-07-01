@@ -90,10 +90,6 @@ trait ResponseTrait
             ));
         }
 
-        if ($code === $this->statusCode && $reasonPhrase === $this->reasonPhrase) {
-            return $this;
-        }
-
         $new = clone $this;
         $new->setStatus($code, $reasonPhrase);
         return $new;

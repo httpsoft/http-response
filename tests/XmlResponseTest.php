@@ -115,25 +115,6 @@ class XmlResponseTest extends TestCase
         self::assertEquals($customPhrase, $response->getReasonPhrase());
     }
 
-    public function testWithStatusHasNotBeenChangedNotClone(): void
-    {
-        $response = $this->response->withStatus(
-            XmlResponse::STATUS_OK,
-            XmlResponse::PHRASES[XmlResponse::STATUS_OK]
-        );
-        self::assertEquals($this->response, $response);
-        self::assertEquals(XmlResponse::STATUS_OK, $response->getStatusCode());
-        self::assertEquals(XmlResponse::PHRASES[XmlResponse::STATUS_OK], $response->getReasonPhrase());
-    }
-
-    public function testWithStatusPassingOnlyCodeHasNotBeenChangedNotClone(): void
-    {
-        $response = $this->response->withStatus(XmlResponse::STATUS_OK);
-        self::assertEquals($this->response, $response);
-        self::assertEquals(XmlResponse::STATUS_OK, $response->getStatusCode());
-        self::assertEquals(XmlResponse::PHRASES[XmlResponse::STATUS_OK], $response->getReasonPhrase());
-    }
-
     /**
      * @return array
      */

@@ -108,25 +108,6 @@ class RedirectResponseTest extends TestCase
         self::assertEquals($customPhrase, $response->getReasonPhrase());
     }
 
-    public function testWithStatusHasNotBeenChangedNotClone(): void
-    {
-        $response = $this->response->withStatus(
-            RedirectResponse::STATUS_FOUND,
-            RedirectResponse::PHRASES[RedirectResponse::STATUS_FOUND]
-        );
-        self::assertEquals($this->response, $response);
-        self::assertEquals(RedirectResponse::STATUS_FOUND, $response->getStatusCode());
-        self::assertEquals(RedirectResponse::PHRASES[RedirectResponse::STATUS_FOUND], $response->getReasonPhrase());
-    }
-
-    public function testWithStatusPassingOnlyCodeHasNotBeenChangedNotClone(): void
-    {
-        $response = $this->response->withStatus(RedirectResponse::STATUS_FOUND);
-        self::assertEquals($this->response, $response);
-        self::assertEquals(RedirectResponse::STATUS_FOUND, $response->getStatusCode());
-        self::assertEquals(RedirectResponse::PHRASES[RedirectResponse::STATUS_FOUND], $response->getReasonPhrase());
-    }
-
     /**
      * @return array
      */
