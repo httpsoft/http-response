@@ -36,13 +36,13 @@ class XmlResponseTest extends TestCase
 
     public function testGettersDefault(): void
     {
-        self::assertEquals(XmlResponse::STATUS_OK, $this->response->getStatusCode());
-        self::assertEquals(XmlResponse::PHRASES[XmlResponse::STATUS_OK], $this->response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $this->response->getBody());
-        self::assertEquals('php://temp', $this->response->getBody()->getMetadata('uri'));
-        self::assertEquals($this->content, $this->response->getBody()->getContents());
-        self::assertEquals($this->contentType, $this->response->getHeaderLine('content-type'));
-        self::assertEquals('1.1', $this->response->getProtocolVersion());
+        $this->assertSame(XmlResponse::STATUS_OK, $this->response->getStatusCode());
+        $this->assertSame(XmlResponse::PHRASES[XmlResponse::STATUS_OK], $this->response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $this->response->getBody());
+        $this->assertSame('php://temp', $this->response->getBody()->getMetadata('uri'));
+        $this->assertSame($this->content, $this->response->getBody()->getContents());
+        $this->assertSame($this->contentType, $this->response->getHeaderLine('content-type'));
+        $this->assertSame('1.1', $this->response->getProtocolVersion());
     }
 
     public function testGettersSpecifiedArguments(): void
@@ -54,18 +54,18 @@ class XmlResponseTest extends TestCase
             $protocol = '2',
             $reasonPhrase = XmlResponse::PHRASES[XmlResponse::STATUS_NOT_FOUND]
         );
-        self::assertEquals($this->content, $response->getBody()->getContents());
-        self::assertEquals($statusCode, $response->getStatusCode());
-        self::assertEquals($reasonPhrase, $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals(
+        $this->assertSame($this->content, $response->getBody()->getContents());
+        $this->assertSame($statusCode, $response->getStatusCode());
+        $this->assertSame($reasonPhrase, $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame(
             [
                 'Content-Language' => ['en'],
                 'Content-Type' => [$this->contentType],
             ],
             $response->getHeaders()
         );
-        self::assertEquals($protocol, $response->getProtocolVersion());
+        $this->assertSame($protocol, $response->getProtocolVersion());
     }
 
     public function testGettersIfHasBeenPassedContentTypeHeader(): void
@@ -77,42 +77,42 @@ class XmlResponseTest extends TestCase
             $protocol = '2',
             $reasonPhrase = XmlResponse::PHRASES[XmlResponse::STATUS_NOT_FOUND]
         );
-        self::assertEquals($this->content, $response->getBody()->getContents());
-        self::assertEquals($statusCode, $response->getStatusCode());
-        self::assertEquals($reasonPhrase, $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals(
+        $this->assertSame($this->content, $response->getBody()->getContents());
+        $this->assertSame($statusCode, $response->getStatusCode());
+        $this->assertSame($reasonPhrase, $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame(
             [
                 'Content-Language' => ['en'],
                 'Content-Type' => ['text/plain; charset=UTF-8'],
             ],
             $response->getHeaders()
         );
-        self::assertEquals($protocol, $response->getProtocolVersion());
+        $this->assertSame($protocol, $response->getProtocolVersion());
     }
 
     public function testWithStatus(): void
     {
         $response = $this->response->withStatus(XmlResponse::STATUS_NOT_FOUND);
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(XmlResponse::STATUS_NOT_FOUND, $response->getStatusCode());
-        self::assertEquals(XmlResponse::PHRASES[XmlResponse::STATUS_NOT_FOUND], $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(XmlResponse::STATUS_NOT_FOUND, $response->getStatusCode());
+        $this->assertSame(XmlResponse::PHRASES[XmlResponse::STATUS_NOT_FOUND], $response->getReasonPhrase());
     }
 
     public function testWithStatusAndCustomReasonPhrase(): void
     {
         $response = $this->response->withStatus(XmlResponse::STATUS_NOT_FOUND, $customPhrase = 'Custom Phrase');
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(XmlResponse::STATUS_NOT_FOUND, $response->getStatusCode());
-        self::assertEquals($customPhrase, $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(XmlResponse::STATUS_NOT_FOUND, $response->getStatusCode());
+        $this->assertSame($customPhrase, $response->getReasonPhrase());
     }
 
     public function testWithStatusHasNotBeenChangedCodeAndHasBeenChangedReasonPhrase(): void
     {
         $response = $this->response->withStatus(XmlResponse::STATUS_OK, $customPhrase = 'Custom Phrase');
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(XmlResponse::STATUS_OK, $response->getStatusCode());
-        self::assertEquals($customPhrase, $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(XmlResponse::STATUS_OK, $response->getStatusCode());
+        $this->assertSame($customPhrase, $response->getReasonPhrase());
     }
 
     /**

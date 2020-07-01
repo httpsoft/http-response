@@ -31,15 +31,15 @@ class RedirectResponseTest extends TestCase
 
     public function testGettersDefault(): void
     {
-        self::assertEquals(RedirectResponse::STATUS_FOUND, $this->response->getStatusCode());
-        self::assertEquals(
+        $this->assertSame(RedirectResponse::STATUS_FOUND, $this->response->getStatusCode());
+        $this->assertSame(
             RedirectResponse::PHRASES[RedirectResponse::STATUS_FOUND],
             $this->response->getReasonPhrase()
         );
-        self::assertInstanceOf(StreamInterface::class, $this->response->getBody());
-        self::assertEquals('php://temp', $this->response->getBody()->getMetadata('uri'));
-        self::assertEquals($this->uri, $this->response->getHeaderLine('location'));
-        self::assertEquals('1.1', $this->response->getProtocolVersion());
+        $this->assertInstanceOf(StreamInterface::class, $this->response->getBody());
+        $this->assertSame('php://temp', $this->response->getBody()->getMetadata('uri'));
+        $this->assertSame($this->uri, $this->response->getHeaderLine('location'));
+        $this->assertSame('1.1', $this->response->getProtocolVersion());
     }
 
     public function testGettersWithStatus301MovedPermanently(): void
@@ -49,12 +49,12 @@ class RedirectResponseTest extends TestCase
             $uri = 'https://example.com/path?query=string#fragment',
             $statusCode = RedirectResponse::STATUS_MOVED_PERMANENTLY
         );
-        self::assertEquals($statusCode, $response->getStatusCode());
-        self::assertEquals(RedirectResponse::PHRASES[$statusCode], $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals('php://temp', $response->getBody()->getMetadata('uri'));
-        self::assertEquals($uri, $response->getHeaderLine('location'));
-        self::assertEquals('1.1', $response->getProtocolVersion());
+        $this->assertSame($statusCode, $response->getStatusCode());
+        $this->assertSame(RedirectResponse::PHRASES[$statusCode], $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame('php://temp', $response->getBody()->getMetadata('uri'));
+        $this->assertSame($uri, $response->getHeaderLine('location'));
+        $this->assertSame('1.1', $response->getProtocolVersion());
     }
 
     public function testGettersWithSpecifiedArguments(): void
@@ -66,21 +66,21 @@ class RedirectResponseTest extends TestCase
             $protocol = '2',
             $reasonPhrase = 'Custom Phrase',
         );
-        self::assertEquals($statusCode, $response->getStatusCode());
-        self::assertEquals($reasonPhrase, $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals('php://temp', $response->getBody()->getMetadata('uri'));
-        self::assertEquals($uri, $response->getHeaderLine('location'));
-        self::assertEquals(['Content-Language' => ['en'], 'Location' => [$uri]], $response->getHeaders());
-        self::assertEquals($protocol, $response->getProtocolVersion());
+        $this->assertSame($statusCode, $response->getStatusCode());
+        $this->assertSame($reasonPhrase, $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame('php://temp', $response->getBody()->getMetadata('uri'));
+        $this->assertSame($uri, $response->getHeaderLine('location'));
+        $this->assertSame(['Content-Language' => ['en'], 'Location' => [$uri]], $response->getHeaders());
+        $this->assertSame($protocol, $response->getProtocolVersion());
     }
 
     public function testWithStatus(): void
     {
         $response = $this->response->withStatus(RedirectResponse::STATUS_MOVED_PERMANENTLY);
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(RedirectResponse::STATUS_MOVED_PERMANENTLY, $response->getStatusCode());
-        self::assertEquals(
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(RedirectResponse::STATUS_MOVED_PERMANENTLY, $response->getStatusCode());
+        $this->assertSame(
             RedirectResponse::PHRASES[RedirectResponse::STATUS_MOVED_PERMANENTLY],
             $response->getReasonPhrase()
         );
@@ -92,9 +92,9 @@ class RedirectResponseTest extends TestCase
             RedirectResponse::STATUS_MOVED_PERMANENTLY,
             $customPhrase = 'Custom Phrase'
         );
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(RedirectResponse::STATUS_MOVED_PERMANENTLY, $response->getStatusCode());
-        self::assertEquals($customPhrase, $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(RedirectResponse::STATUS_MOVED_PERMANENTLY, $response->getStatusCode());
+        $this->assertSame($customPhrase, $response->getReasonPhrase());
     }
 
     public function testWithStatusHasNotBeenChangedCodeAndHasBeenChangedReasonPhrase(): void
@@ -103,9 +103,9 @@ class RedirectResponseTest extends TestCase
             RedirectResponse::STATUS_MOVED_PERMANENTLY,
             $customPhrase = 'Custom Phrase'
         );
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(RedirectResponse::STATUS_MOVED_PERMANENTLY, $response->getStatusCode());
-        self::assertEquals($customPhrase, $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(RedirectResponse::STATUS_MOVED_PERMANENTLY, $response->getStatusCode());
+        $this->assertSame($customPhrase, $response->getReasonPhrase());
     }
 
     /**

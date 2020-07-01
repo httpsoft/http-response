@@ -38,16 +38,16 @@ class JsonResponseTest extends TestCase
 
     public function testGettersDefault(): void
     {
-        self::assertEquals(JsonResponse::STATUS_OK, $this->response->getStatusCode());
-        self::assertEquals(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $this->response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $this->response->getBody());
-        self::assertEquals('php://temp', $this->response->getBody()->getMetadata('uri'));
-        self::assertEquals(
+        $this->assertSame(JsonResponse::STATUS_OK, $this->response->getStatusCode());
+        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $this->response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $this->response->getBody());
+        $this->assertSame('php://temp', $this->response->getBody()->getMetadata('uri'));
+        $this->assertSame(
             json_encode($this->data, JsonResponse::DEFAULT_OPTIONS),
             $this->response->getBody()->getContents()
         );
-        self::assertEquals($this->contentType, $this->response->getHeaderLine('content-type'));
-        self::assertEquals('1.1', $this->response->getProtocolVersion());
+        $this->assertSame($this->contentType, $this->response->getHeaderLine('content-type'));
+        $this->assertSame('1.1', $this->response->getProtocolVersion());
     }
 
     public function testGettersIfHasBeenPassedContentTypeHeader(): void
@@ -59,21 +59,21 @@ class JsonResponseTest extends TestCase
             $protocol = '2',
             $reasonPhrase = JsonResponse::PHRASES[JsonResponse::STATUS_NOT_FOUND]
         );
-        self::assertEquals(
+        $this->assertSame(
             json_encode($this->data, JsonResponse::DEFAULT_OPTIONS),
             $this->response->getBody()->getContents()
         );
-        self::assertEquals($statusCode, $response->getStatusCode());
-        self::assertEquals($reasonPhrase, $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals(
+        $this->assertSame($statusCode, $response->getStatusCode());
+        $this->assertSame($reasonPhrase, $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame(
             [
                 'Content-Language' => ['en'],
                 'Content-Type' => ['text/plain; charset=UTF-8'],
             ],
             $response->getHeaders()
         );
-        self::assertEquals($protocol, $response->getProtocolVersion());
+        $this->assertSame($protocol, $response->getProtocolVersion());
     }
 
     public function testGettersSpecifiedArgumentsWithHtmlEncodingOptions(): void
@@ -86,18 +86,18 @@ class JsonResponseTest extends TestCase
             $reasonPhrase = JsonResponse::PHRASES[JsonResponse::STATUS_NOT_FOUND],
             $encodingOptions = JsonResponse::HTML_OPTIONS
         );
-        self::assertEquals(json_encode($data, $encodingOptions), $response->getBody()->getContents());
-        self::assertEquals($statusCode, $response->getStatusCode());
-        self::assertEquals($reasonPhrase, $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals(
+        $this->assertSame(json_encode($data, $encodingOptions), $response->getBody()->getContents());
+        $this->assertSame($statusCode, $response->getStatusCode());
+        $this->assertSame($reasonPhrase, $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame(
             [
                 'Content-Language' => ['en'],
                 'Content-Type' => [$this->contentType],
             ],
             $response->getHeaders()
         );
-        self::assertEquals($protocol, $response->getProtocolVersion());
+        $this->assertSame($protocol, $response->getProtocolVersion());
     }
 
     public function testWithJsonDataWithHtmlEncodingOptions(): void
@@ -106,13 +106,13 @@ class JsonResponseTest extends TestCase
             $data = ['html' => '<p>HTML</p>'],
             $encodingOptions = JsonResponse::HTML_OPTIONS
         );
-        self::assertNotEquals($response, $this->response);
-        self::assertEquals(json_encode($data, $encodingOptions), $response->getBody()->getContents());
-        self::assertEquals(JsonResponse::STATUS_OK, $response->getStatusCode());
-        self::assertEquals(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals(['Content-Type' => [$this->contentType]], $response->getHeaders());
-        self::assertEquals('1.1', $response->getProtocolVersion());
+        $this->assertNotSame($response, $this->response);
+        $this->assertSame(json_encode($data, $encodingOptions), $response->getBody()->getContents());
+        $this->assertSame(JsonResponse::STATUS_OK, $response->getStatusCode());
+        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame(['Content-Type' => [$this->contentType]], $response->getHeaders());
+        $this->assertSame('1.1', $response->getProtocolVersion());
     }
 
     public function testGettersSpecifiedArgumentsWithCustomEncodingOptions(): void
@@ -125,18 +125,18 @@ class JsonResponseTest extends TestCase
             $reasonPhrase = JsonResponse::PHRASES[JsonResponse::STATUS_NOT_FOUND],
             $encodingOptions = JSON_HEX_APOS | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
         );
-        self::assertEquals(json_encode($data, $encodingOptions), $response->getBody()->getContents());
-        self::assertEquals($statusCode, $response->getStatusCode());
-        self::assertEquals($reasonPhrase, $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals(
+        $this->assertSame(json_encode($data, $encodingOptions), $response->getBody()->getContents());
+        $this->assertSame($statusCode, $response->getStatusCode());
+        $this->assertSame($reasonPhrase, $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame(
             [
                 'Content-Language' => ['en'],
                 'Content-Type' => [$this->contentType],
             ],
             $response->getHeaders()
         );
-        self::assertEquals($protocol, $response->getProtocolVersion());
+        $this->assertSame($protocol, $response->getProtocolVersion());
     }
 
     public function testWithJsonDataWithCustomEncodingOptions(): void
@@ -145,25 +145,25 @@ class JsonResponseTest extends TestCase
             $data = ['text' => "O'Reilly"],
             $encodingOptions = JSON_HEX_APOS | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
         );
-        self::assertNotEquals($response, $this->response);
-        self::assertEquals(json_encode($data, $encodingOptions), $response->getBody()->getContents());
-        self::assertEquals(JsonResponse::STATUS_OK, $response->getStatusCode());
-        self::assertEquals(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals(['Content-Type' => [$this->contentType]], $response->getHeaders());
-        self::assertEquals('1.1', $response->getProtocolVersion());
+        $this->assertNotSame($response, $this->response);
+        $this->assertSame(json_encode($data, $encodingOptions), $response->getBody()->getContents());
+        $this->assertSame(JsonResponse::STATUS_OK, $response->getStatusCode());
+        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame(['Content-Type' => [$this->contentType]], $response->getHeaders());
+        $this->assertSame('1.1', $response->getProtocolVersion());
     }
 
     public function testWithJsonDataHasBeenClonedForSpecifiedObjectData(): void
     {
         $data = new StdClass();
         $response = $this->response->withJsonData($data);
-        self::assertNotEquals($response, $this->response);
+        $this->assertNotSame($response, $this->response);
         $response2 = $response->withJsonData($data);
-        self::assertNotEquals($response2, $response);
+        $this->assertNotSame($response2, $response);
         $response3 = $response2->withJsonData($data);
-        self::assertNotEquals($response3, $response2);
-        self::assertNotEquals($response3, $response);
+        $this->assertNotSame($response3, $response2);
+        $this->assertNotSame($response3, $response);
     }
 
     /**
@@ -232,34 +232,34 @@ class JsonResponseTest extends TestCase
     public function testConstructorForValidBody($data): void
     {
         $response = new JsonResponse($data);
-        self::assertEquals(JsonResponse::STATUS_OK, $response->getStatusCode());
-        self::assertEquals(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
-        self::assertEquals(json_encode($data, JsonResponse::DEFAULT_OPTIONS), $response->getBody()->getContents());
-        self::assertEquals($this->contentType, $response->getHeaderLine('content-type'));
+        $this->assertSame(JsonResponse::STATUS_OK, $response->getStatusCode());
+        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
+        $this->assertSame(json_encode($data, JsonResponse::DEFAULT_OPTIONS), $response->getBody()->getContents());
+        $this->assertSame($this->contentType, $response->getHeaderLine('content-type'));
     }
 
     public function testWithStatus(): void
     {
         $response = $this->response->withStatus(JsonResponse::STATUS_NOT_FOUND);
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(JsonResponse::STATUS_NOT_FOUND, $response->getStatusCode());
-        self::assertEquals(JsonResponse::PHRASES[JsonResponse::STATUS_NOT_FOUND], $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(JsonResponse::STATUS_NOT_FOUND, $response->getStatusCode());
+        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_NOT_FOUND], $response->getReasonPhrase());
     }
 
     public function testWithStatusAndCustomReasonPhrase(): void
     {
         $response = $this->response->withStatus(JsonResponse::STATUS_NOT_FOUND, $customPhrase = 'Custom Phrase');
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(JsonResponse::STATUS_NOT_FOUND, $response->getStatusCode());
-        self::assertEquals($customPhrase, $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(JsonResponse::STATUS_NOT_FOUND, $response->getStatusCode());
+        $this->assertSame($customPhrase, $response->getReasonPhrase());
     }
 
     public function testWithStatusHasNotBeenChangedCodeAndHasBeenChangedReasonPhrase(): void
     {
         $response = $this->response->withStatus(JsonResponse::STATUS_OK, $customPhrase = 'Custom Phrase');
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(JsonResponse::STATUS_OK, $response->getStatusCode());
-        self::assertEquals($customPhrase, $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(JsonResponse::STATUS_OK, $response->getStatusCode());
+        $this->assertSame($customPhrase, $response->getReasonPhrase());
     }
 
     /**

@@ -26,13 +26,13 @@ class ResponseTest extends TestCase
 
     public function testGettersDefault(): void
     {
-        self::assertEquals(Response::STATUS_OK, $this->response->getStatusCode());
-        self::assertEquals(Response::PHRASES[Response::STATUS_OK], $this->response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $this->response->getBody());
-        self::assertEquals('php://temp', $this->response->getBody()->getMetadata('uri'));
-        self::assertEquals('', $this->response->getBody()->getContents());
-        self::assertEquals([], $this->response->getHeaders());
-        self::assertEquals('1.1', $this->response->getProtocolVersion());
+        $this->assertSame(Response::STATUS_OK, $this->response->getStatusCode());
+        $this->assertSame(Response::PHRASES[Response::STATUS_OK], $this->response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $this->response->getBody());
+        $this->assertSame('php://temp', $this->response->getBody()->getMetadata('uri'));
+        $this->assertSame('', $this->response->getBody()->getContents());
+        $this->assertSame([], $this->response->getHeaders());
+        $this->assertSame('1.1', $this->response->getProtocolVersion());
     }
 
     public function testGettersSpecifiedArguments(): void
@@ -44,37 +44,37 @@ class ResponseTest extends TestCase
             ['Content-Language' => 'en'],
             $protocol = '2'
         );
-        self::assertEquals($statusCode, $response->getStatusCode());
-        self::assertEquals($reasonPhrase, $response->getReasonPhrase());
-        self::assertInstanceOf(StreamInterface::class, $response->getBody());
-        self::assertEquals($stream, $response->getBody()->getMetadata('uri'));
-        self::assertEquals('', $response->getBody()->getContents());
-        self::assertEquals(['Content-Language' => ['en']], $response->getHeaders());
-        self::assertEquals($protocol, $response->getProtocolVersion());
+        $this->assertSame($statusCode, $response->getStatusCode());
+        $this->assertSame($reasonPhrase, $response->getReasonPhrase());
+        $this->assertInstanceOf(StreamInterface::class, $response->getBody());
+        $this->assertSame($stream, $response->getBody()->getMetadata('uri'));
+        $this->assertSame('', $response->getBody()->getContents());
+        $this->assertSame(['Content-Language' => ['en']], $response->getHeaders());
+        $this->assertSame($protocol, $response->getProtocolVersion());
     }
 
     public function testWithStatus(): void
     {
         $response = $this->response->withStatus(Response::STATUS_NOT_FOUND);
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(Response::STATUS_NOT_FOUND, $response->getStatusCode());
-        self::assertEquals(Response::PHRASES[Response::STATUS_NOT_FOUND], $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(Response::STATUS_NOT_FOUND, $response->getStatusCode());
+        $this->assertSame(Response::PHRASES[Response::STATUS_NOT_FOUND], $response->getReasonPhrase());
     }
 
     public function testWithStatusAndCustomReasonPhrase(): void
     {
         $response = $this->response->withStatus(Response::STATUS_NOT_FOUND, $customPhrase = 'Custom Phrase');
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(Response::STATUS_NOT_FOUND, $response->getStatusCode());
-        self::assertEquals($customPhrase, $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(Response::STATUS_NOT_FOUND, $response->getStatusCode());
+        $this->assertSame($customPhrase, $response->getReasonPhrase());
     }
 
     public function testWithStatusHasNotBeenChangedCodeAndHasBeenChangedReasonPhrase(): void
     {
         $response = $this->response->withStatus(Response::STATUS_OK, $customPhrase = 'Custom Phrase');
-        self::assertNotEquals($this->response, $response);
-        self::assertEquals(Response::STATUS_OK, $response->getStatusCode());
-        self::assertEquals($customPhrase, $response->getReasonPhrase());
+        $this->assertNotSame($this->response, $response);
+        $this->assertSame(Response::STATUS_OK, $response->getStatusCode());
+        $this->assertSame($customPhrase, $response->getReasonPhrase());
     }
 
     /**
