@@ -25,7 +25,7 @@ final class TextResponse implements ResponseInterface, ResponseStatusCodeInterfa
         string $protocol = '1.1',
         string $reasonPhrase = ''
     ) {
-        $this->init($code, $reasonPhrase, StreamFactory::createFromContent($text), $headers, $protocol);
+        $this->init($code, $reasonPhrase, $headers, StreamFactory::createFromContent($text), $protocol);
         $this->setContentTypeHeaderIfNotExists('text/plain; charset=UTF-8');
     }
 }

@@ -123,13 +123,13 @@ trait ResponseTrait
     private function init(
         int $statusCode = ResponseStatusCodeInterface::STATUS_OK,
         string $reasonPhrase = '',
-        $body = 'php://temp',
         array $headers = [],
+        $body = 'php://temp',
         string $protocol = '1.1'
     ): void {
         $this->setStatus($statusCode, $reasonPhrase);
-        $this->stream = StreamFactory::create($body);
         $this->registerHeaders($headers);
+        $this->stream = StreamFactory::create($body);
         $this->registerProtocolVersion($protocol);
     }
 

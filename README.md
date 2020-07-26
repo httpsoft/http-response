@@ -40,7 +40,7 @@ $response->getHeaders(); // []
 $response->getProtocolVersion(); // '1.1'
 
 // Create with the passed parameters
-$response = new Response(404, '', 'php://memory', ['Content-Language' => 'en'], '2');
+$response = new Response(404, ['Content-Language' => 'en'], 'php://memory', '2');
 $response->getStatusCode(); // 404
 $response->getReasonPhrase(); // 'Not Found'
 $response->getBody()->getContents(); // ''

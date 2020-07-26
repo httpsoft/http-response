@@ -25,7 +25,7 @@ final class HtmlResponse implements ResponseInterface, ResponseStatusCodeInterfa
         string $protocol = '1.1',
         string $reasonPhrase = ''
     ) {
-        $this->init($code, $reasonPhrase, StreamFactory::createFromContent($html), $headers, $protocol);
+        $this->init($code, $reasonPhrase, $headers, StreamFactory::createFromContent($html), $protocol);
         $this->setContentTypeHeaderIfNotExists('text/html; charset=UTF-8');
     }
 }

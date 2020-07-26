@@ -55,7 +55,7 @@ final class JsonResponse implements ResponseInterface, ResponseStatusCodeInterfa
         int $encodingOptions = self::DEFAULT_OPTIONS
     ) {
         $json = $this->encode($data, $encodingOptions);
-        $this->init($code, $reasonPhrase, StreamFactory::createFromContent($json), $headers, $protocol);
+        $this->init($code, $reasonPhrase, $headers, StreamFactory::createFromContent($json), $protocol);
         $this->setContentTypeHeaderIfNotExists('application/json; charset=UTF-8');
     }
 

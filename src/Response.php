@@ -13,18 +13,18 @@ final class Response implements ResponseInterface, ResponseStatusCodeInterface
 
     /**
      * @param int $statusCode
-     * @param string $reasonPhrase
-     * @param StreamInterface|string|resource $body
      * @param array $headers
+     * @param StreamInterface|string|resource $body
      * @param string $protocol
+     * @param string $reasonPhrase
      */
     public function __construct(
         int $statusCode = self::STATUS_OK,
-        string $reasonPhrase = '',
-        $body = 'php://temp',
         array $headers = [],
-        string $protocol = '1.1'
+        $body = 'php://temp',
+        string $protocol = '1.1',
+        string $reasonPhrase = ''
     ) {
-        $this->init($statusCode, $reasonPhrase, $body, $headers, $protocol);
+        $this->init($statusCode, $reasonPhrase, $headers, $body, $protocol);
     }
 }

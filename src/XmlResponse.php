@@ -25,7 +25,7 @@ final class XmlResponse implements ResponseInterface, ResponseStatusCodeInterfac
         string $protocol = '1.1',
         string $reasonPhrase = ''
     ) {
-        $this->init($code, $reasonPhrase, StreamFactory::createFromContent($xml), $headers, $protocol);
+        $this->init($code, $reasonPhrase, $headers, StreamFactory::createFromContent($xml), $protocol);
         $this->setContentTypeHeaderIfNotExists('application/xml; charset=UTF-8');
     }
 }

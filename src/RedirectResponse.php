@@ -25,6 +25,6 @@ final class RedirectResponse implements ResponseInterface, ResponseStatusCodeInt
         string $reasonPhrase = ''
     ) {
         $headers['Location'] = $uri;
-        $this->init($code, $reasonPhrase, 'php://temp', $headers, $protocol);
+        $this->init($code, $reasonPhrase, $headers, 'php://temp', $protocol);
     }
 }

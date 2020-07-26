@@ -12,20 +12,20 @@ final class ResponseFactory implements ResponseFactoryInterface
 {
     /**
      * @param int $statusCode
-     * @param string $reasonPhrase
-     * @param StreamInterface|string|resource $body
      * @param array $headers
+     * @param StreamInterface|string|resource $body
      * @param string $protocol
+     * @param string $reasonPhrase
      * @return ResponseInterface
      */
     public static function create(
         int $statusCode = Response::STATUS_OK,
-        string $reasonPhrase = '',
-        $body = 'php://temp',
         array $headers = [],
-        string $protocol = '1.1'
+        $body = 'php://temp',
+        string $protocol = '1.1',
+        string $reasonPhrase = ''
     ): ResponseInterface {
-        return new Response($statusCode, $reasonPhrase, $body, $headers, $protocol);
+        return new Response($statusCode, $headers, $body, $protocol, $reasonPhrase);
     }
 
     /**
@@ -33,6 +33,6 @@ final class ResponseFactory implements ResponseFactoryInterface
      */
     public function createResponse(int $statusCode = Response::STATUS_OK, string $reasonPhrase = ''): ResponseInterface
     {
-        return new Response($statusCode, $reasonPhrase);
+        return new Response($statusCode, [], 'php://temp', '1.1', $reasonPhrase);
     }
 }

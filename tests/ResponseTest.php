@@ -39,10 +39,10 @@ class ResponseTest extends TestCase
     {
         $response = new Response(
             $statusCode = Response::STATUS_NOT_FOUND,
-            $reasonPhrase = Response::PHRASES[Response::STATUS_NOT_FOUND],
-            $stream = 'php://memory',
             ['Content-Language' => 'en'],
-            $protocol = '2'
+            $stream = 'php://memory',
+            $protocol = '2',
+            $reasonPhrase = Response::PHRASES[Response::STATUS_NOT_FOUND]
         );
         $this->assertSame($statusCode, $response->getStatusCode());
         $this->assertSame($reasonPhrase, $response->getReasonPhrase());

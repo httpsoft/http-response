@@ -23,6 +23,6 @@ final class EmptyResponse implements ResponseInterface, ResponseStatusCodeInterf
         string $protocol = '1.1',
         string $reasonPhrase = ''
     ) {
-        $this->init($code, $reasonPhrase, StreamFactory::create('php://temp', 'r'), $headers, $protocol);
+        $this->init($code, $reasonPhrase, $headers, StreamFactory::create('php://temp', 'r'), $protocol);
     }
 }

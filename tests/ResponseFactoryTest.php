@@ -36,10 +36,10 @@ class ResponseFactoryTest extends TestCase
 
         $response = ResponseFactory::create(
             $statusCode = Response::STATUS_NOT_FOUND,
-            $customPhrase = 'Custom Phrase',
-            $stream = 'php://memory',
             ['Content-Language' => 'en'],
-            $protocol = '2'
+            $stream = 'php://memory',
+            $protocol = '2',
+            $customPhrase = 'Custom Phrase'
         );
         $this->assertInstanceOf(Response::class, $response);
         $this->assertInstanceOf(ResponseInterface::class, $response);
