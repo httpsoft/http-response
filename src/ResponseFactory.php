@@ -31,8 +31,8 @@ final class ResponseFactory implements ResponseFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function createResponse(int $statusCode = Response::STATUS_OK, string $reasonPhrase = ''): ResponseInterface
+    public function createResponse(int $code = Response::STATUS_OK, string $reasonPhrase = ''): ResponseInterface
     {
-        return new Response($statusCode, [], 'php://temp', '1.1', $reasonPhrase);
+        return new Response($code, [], 'php://temp', '1.1', $reasonPhrase);
     }
 }
