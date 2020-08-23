@@ -39,7 +39,7 @@ class JsonResponseTest extends TestCase
     public function testGettersDefault(): void
     {
         $this->assertSame(JsonResponse::STATUS_OK, $this->response->getStatusCode());
-        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $this->response->getReasonPhrase());
+        $this->assertSame('OK', $this->response->getReasonPhrase());
         $this->assertInstanceOf(StreamInterface::class, $this->response->getBody());
         $this->assertSame('php://temp', $this->response->getBody()->getMetadata('uri'));
         $this->assertSame(
@@ -57,7 +57,7 @@ class JsonResponseTest extends TestCase
             $statusCode = JsonResponse::STATUS_NOT_FOUND,
             ['Content-Language' => 'en',  'Content-Type' => 'text/plain; charset=UTF-8'],
             $protocol = '2',
-            $reasonPhrase = JsonResponse::PHRASES[JsonResponse::STATUS_NOT_FOUND]
+            $reasonPhrase = 'Not Found'
         );
         $this->assertSame(
             json_encode($this->data, JsonResponse::DEFAULT_OPTIONS),
@@ -83,7 +83,7 @@ class JsonResponseTest extends TestCase
             $statusCode = JsonResponse::STATUS_NOT_FOUND,
             ['Content-Language' => 'en'],
             $protocol = '2',
-            $reasonPhrase = JsonResponse::PHRASES[JsonResponse::STATUS_NOT_FOUND],
+            $reasonPhrase = 'Not Found',
             $encodingOptions = JsonResponse::HTML_OPTIONS
         );
         $this->assertSame(json_encode($data, $encodingOptions), $response->getBody()->getContents());
@@ -109,7 +109,7 @@ class JsonResponseTest extends TestCase
         $this->assertNotSame($response, $this->response);
         $this->assertSame(json_encode($data, $encodingOptions), $response->getBody()->getContents());
         $this->assertSame(JsonResponse::STATUS_OK, $response->getStatusCode());
-        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
+        $this->assertSame('OK', $response->getReasonPhrase());
         $this->assertInstanceOf(StreamInterface::class, $response->getBody());
         $this->assertSame(['Content-Type' => [$this->contentType]], $response->getHeaders());
         $this->assertSame('1.1', $response->getProtocolVersion());
@@ -122,7 +122,7 @@ class JsonResponseTest extends TestCase
             $statusCode = JsonResponse::STATUS_NOT_FOUND,
             ['Content-Language' => 'en'],
             $protocol = '2',
-            $reasonPhrase = JsonResponse::PHRASES[JsonResponse::STATUS_NOT_FOUND],
+            $reasonPhrase = 'Not Found',
             $encodingOptions = JSON_HEX_APOS | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
         );
         $this->assertSame(json_encode($data, $encodingOptions), $response->getBody()->getContents());
@@ -148,7 +148,7 @@ class JsonResponseTest extends TestCase
         $this->assertNotSame($response, $this->response);
         $this->assertSame(json_encode($data, $encodingOptions), $response->getBody()->getContents());
         $this->assertSame(JsonResponse::STATUS_OK, $response->getStatusCode());
-        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
+        $this->assertSame('OK', $response->getReasonPhrase());
         $this->assertInstanceOf(StreamInterface::class, $response->getBody());
         $this->assertSame(['Content-Type' => [$this->contentType]], $response->getHeaders());
         $this->assertSame('1.1', $response->getProtocolVersion());
@@ -233,7 +233,7 @@ class JsonResponseTest extends TestCase
     {
         $response = new JsonResponse($data);
         $this->assertSame(JsonResponse::STATUS_OK, $response->getStatusCode());
-        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_OK], $response->getReasonPhrase());
+        $this->assertSame('OK', $response->getReasonPhrase());
         $this->assertSame(json_encode($data, JsonResponse::DEFAULT_OPTIONS), $response->getBody()->getContents());
         $this->assertSame($this->contentType, $response->getHeaderLine('content-type'));
     }
@@ -243,7 +243,7 @@ class JsonResponseTest extends TestCase
         $response = $this->response->withStatus(JsonResponse::STATUS_NOT_FOUND);
         $this->assertNotSame($this->response, $response);
         $this->assertSame(JsonResponse::STATUS_NOT_FOUND, $response->getStatusCode());
-        $this->assertSame(JsonResponse::PHRASES[JsonResponse::STATUS_NOT_FOUND], $response->getReasonPhrase());
+        $this->assertSame('Not Found', $response->getReasonPhrase());
     }
 
     public function testWithStatusAndCustomReasonPhrase(): void

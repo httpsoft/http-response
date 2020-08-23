@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace HttpSoft\Response;
 
-use HttpSoft\Stream\StreamFactory;
+use HttpSoft\Message\Stream;
 use Psr\Http\Message\ResponseInterface;
 
 final class EmptyResponse implements ResponseInterface, ResponseStatusCodeInterface
 {
-    use ResponseTrait;
+    use ResponseExtensionTrait;
 
     /**
      * @param int $code
@@ -23,6 +23,6 @@ final class EmptyResponse implements ResponseInterface, ResponseStatusCodeInterf
         string $protocol = '1.1',
         string $reasonPhrase = ''
     ) {
-        $this->init($code, $reasonPhrase, $headers, StreamFactory::create('php://temp', 'r'), $protocol);
+        $this->init($code, $reasonPhrase, $headers, new Stream('php://temp', 'r'), $protocol);
     }
 }

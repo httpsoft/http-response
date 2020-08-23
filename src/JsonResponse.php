@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace HttpSoft\Response;
 
-use HttpSoft\Stream\StreamFactory;
 use InvalidArgumentException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
@@ -25,7 +24,7 @@ use const JSON_UNESCAPED_UNICODE;
 
 final class JsonResponse implements ResponseInterface, ResponseStatusCodeInterface
 {
-    use ResponseTrait;
+    use ResponseExtensionTrait;
 
     /**
      * Default options for `json_encode()`.
@@ -55,7 +54,7 @@ final class JsonResponse implements ResponseInterface, ResponseStatusCodeInterfa
         int $encodingOptions = self::DEFAULT_OPTIONS
     ) {
         $json = $this->encode($data, $encodingOptions);
-        $this->init($code, $reasonPhrase, $headers, StreamFactory::createFromContent($json), $protocol);
+        $this->init($code, $reasonPhrase, $headers, $this->createBody($json), $protocol);
         $this->setContentTypeHeaderIfNotExists('application/json; charset=UTF-8');
     }
 
@@ -66,7 +65,7 @@ final class JsonResponse implements ResponseInterface, ResponseStatusCodeInterfa
      */
     public function withJsonData($data, int $encodingOptions = self::DEFAULT_OPTIONS): self
     {
-        return $this->withBody(StreamFactory::createFromContent($this->encode($data, $encodingOptions)));
+        return $this->withBody($this->createBody($this->encode($data, $encodingOptions)));
     }
 
     /**

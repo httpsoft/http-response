@@ -37,7 +37,7 @@ class HtmlResponseTest extends TestCase
     public function testGettersDefault(): void
     {
         $this->assertSame(HtmlResponse::STATUS_OK, $this->response->getStatusCode());
-        $this->assertSame(HtmlResponse::PHRASES[HtmlResponse::STATUS_OK], $this->response->getReasonPhrase());
+        $this->assertSame('OK', $this->response->getReasonPhrase());
         $this->assertInstanceOf(StreamInterface::class, $this->response->getBody());
         $this->assertSame('php://temp', $this->response->getBody()->getMetadata('uri'));
         $this->assertSame($this->content, $this->response->getBody()->getContents());
@@ -52,7 +52,7 @@ class HtmlResponseTest extends TestCase
             $statusCode = HtmlResponse::STATUS_NOT_FOUND,
             ['Content-Language' => 'en'],
             $protocol = '2',
-            $reasonPhrase = HtmlResponse::PHRASES[HtmlResponse::STATUS_NOT_FOUND]
+            $reasonPhrase = 'Not Found'
         );
         $this->assertSame($this->content, $response->getBody()->getContents());
         $this->assertSame($statusCode, $response->getStatusCode());
@@ -75,7 +75,7 @@ class HtmlResponseTest extends TestCase
             $statusCode = HtmlResponse::STATUS_NOT_FOUND,
             ['Content-Language' => 'en',  'Content-Type' => 'text/plain; charset=UTF-8'],
             $protocol = '2',
-            $reasonPhrase = HtmlResponse::PHRASES[HtmlResponse::STATUS_NOT_FOUND]
+            $reasonPhrase = 'Not Found'
         );
         $this->assertSame($this->content, $response->getBody()->getContents());
         $this->assertSame($statusCode, $response->getStatusCode());
@@ -96,7 +96,7 @@ class HtmlResponseTest extends TestCase
         $response = $this->response->withStatus(HtmlResponse::STATUS_NOT_FOUND);
         $this->assertNotSame($this->response, $response);
         $this->assertSame(HtmlResponse::STATUS_NOT_FOUND, $response->getStatusCode());
-        $this->assertSame(HtmlResponse::PHRASES[HtmlResponse::STATUS_NOT_FOUND], $response->getReasonPhrase());
+        $this->assertSame('Not Found', $response->getReasonPhrase());
     }
 
     public function testWithStatusAndCustomReasonPhrase(): void

@@ -27,10 +27,7 @@ class EmptyResponseTest extends TestCase
     public function testGettersDefault(): void
     {
         $this->assertSame(EmptyResponse::STATUS_NO_CONTENT, $this->response->getStatusCode());
-        $this->assertSame(
-            EmptyResponse::PHRASES[EmptyResponse::STATUS_NO_CONTENT],
-            $this->response->getReasonPhrase()
-        );
+        $this->assertSame('No Content', $this->response->getReasonPhrase());
         $this->assertInstanceOf(StreamInterface::class, $this->response->getBody());
         $this->assertSame('php://temp', $this->response->getBody()->getMetadata('uri'));
         $this->assertSame('', $this->response->getBody()->getContents());
@@ -59,7 +56,7 @@ class EmptyResponseTest extends TestCase
         $response = $this->response->withStatus(EmptyResponse::STATUS_CREATED);
         $this->assertNotSame($this->response, $response);
         $this->assertSame(EmptyResponse::STATUS_CREATED, $response->getStatusCode());
-        $this->assertSame(EmptyResponse::PHRASES[EmptyResponse::STATUS_CREATED], $response->getReasonPhrase());
+        $this->assertSame('Created', $response->getReasonPhrase());
     }
 
     public function testWithStatusAndCustomReasonPhrase(): void

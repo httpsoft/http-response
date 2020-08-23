@@ -16,11 +16,8 @@
     <issueHandlers>
         <DocblockTypeContradiction errorLevel="info" />
         <MixedAssignment errorLevel="info" />
-        <MixedArgumentTypeCoercion errorLevel="info" />
-        <MixedPropertyTypeCoercion errorLevel="info" />
         <PropertyNotSetInConstructor errorLevel="info" />
         <RedundantCondition errorLevel="info" />
-        <RedundantConditionGivenDocblockType errorLevel="info" />
         <TypeDoesNotContainType errorLevel="info" />
     </issueHandlers>
 </psalm>

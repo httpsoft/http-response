@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 
 final class RedirectResponse implements ResponseInterface, ResponseStatusCodeInterface
 {
-    use ResponseTrait;
+    use ResponseExtensionTrait;
 
     /**
      * @param string $uri

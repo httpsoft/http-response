@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace HttpSoft\Response;
 
-use HttpSoft\Stream\StreamFactory;
 use Psr\Http\Message\ResponseInterface;
 
 final class TextResponse implements ResponseInterface, ResponseStatusCodeInterface
 {
-    use ResponseTrait;
+    use ResponseExtensionTrait;
 
     /**
      * @param string $text
@@ -25,7 +24,7 @@ final class TextResponse implements ResponseInterface, ResponseStatusCodeInterfa
         string $protocol = '1.1',
         string $reasonPhrase = ''
     ) {
-        $this->init($code, $reasonPhrase, $headers, StreamFactory::createFromContent($text), $protocol);
+        $this->init($code, $reasonPhrase, $headers, $this->createBody($text), $protocol);
         $this->setContentTypeHeaderIfNotExists('text/plain; charset=UTF-8');
     }
 }

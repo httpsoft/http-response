@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace HttpSoft\Response;
 
-use HttpSoft\Stream\StreamFactory;
 use Psr\Http\Message\ResponseInterface;
 
 final class XmlResponse implements ResponseInterface, ResponseStatusCodeInterface
 {
-    use ResponseTrait;
+    use ResponseExtensionTrait;
 
     /**
      * @param string $xml
@@ -25,7 +24,7 @@ final class XmlResponse implements ResponseInterface, ResponseStatusCodeInterfac
         string $protocol = '1.1',
         string $reasonPhrase = ''
     ) {
-        $this->init($code, $reasonPhrase, $headers, StreamFactory::createFromContent($xml), $protocol);
+        $this->init($code, $reasonPhrase, $headers, $this->createBody($xml), $protocol);
         $this->setContentTypeHeaderIfNotExists('application/xml; charset=UTF-8');
     }
 }
