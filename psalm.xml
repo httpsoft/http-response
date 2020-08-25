@@ -14,10 +14,6 @@
     </projectFiles>
 
     <issueHandlers>
-        <DocblockTypeContradiction errorLevel="info" />
-        <MixedAssignment errorLevel="info" />
         <PropertyNotSetInConstructor errorLevel="info" />
-        <RedundantCondition errorLevel="info" />
-        <TypeDoesNotContainType errorLevel="info" />
     </issueHandlers>
 </psalm>
