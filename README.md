@@ -4,6 +4,7 @@
 [![Latest Stable Version](https://poser.pugx.org/httpsoft/http-response/v)](https://packagist.org/packages/httpsoft/http-response)
 [![Total Downloads](https://poser.pugx.org/httpsoft/http-response/downloads)](https://packagist.org/packages/httpsoft/http-response)
 [![GitHub Build Status](https://github.com/httpsoft/http-response/workflows/build/badge.svg)](https://github.com/httpsoft/http-response/actions)
+[![GitHub Static Analysis Status](https://github.com/httpsoft/http-response/workflows/static/badge.svg)](https://github.com/httpsoft/http-response/actions)
 [![Scrutinizer Code Coverage](https://scrutinizer-ci.com/g/httpsoft/http-response/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/httpsoft/http-response/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/httpsoft/http-response/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/httpsoft/http-response/?branch=master)
 
