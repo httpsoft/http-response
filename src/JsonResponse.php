@@ -85,7 +85,7 @@ final class JsonResponse implements ResponseInterface, ResponseStatusCodeInterfa
             $json = json_encode($data, $options);
 
             if (JSON_ERROR_NONE !== json_last_error()) {
-                throw new JsonException((string) json_last_error_msg());
+                throw new JsonException(json_last_error_msg());
             }
 
             return $json;
