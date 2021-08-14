@@ -81,6 +81,7 @@ final class JsonResponse implements ResponseInterface, ResponseStatusCodeInterfa
         }
 
         try {
+            /** @psalm-suppress UnusedFunctionCall */
             json_encode(null);
             $json = json_encode($data, $options);
 
