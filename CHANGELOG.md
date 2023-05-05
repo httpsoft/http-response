@@ -1,5 +1,11 @@
 # HTTP Response Change Log
 
+## 1.1.0 - 2023.05.05
+
+### Changed
+
+- [#2](https://github.com/httpsoft/http-response/pull/2) Rises `httpsoft/http-message` package version to `^1.1`.
+
 ## 1.0.4 - 2020.12.12
 
 ### Added
